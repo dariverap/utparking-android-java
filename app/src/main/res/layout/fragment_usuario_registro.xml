@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1F1F1"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Nombre"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="#F1F1F1"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/baseline_drive_file_rename_outline_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none|text"
+                android:padding="17dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Apellido"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="#F1F1F1"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/baseline_drive_file_rename_outline_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etApellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:padding="17dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Correo"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="#F1F1F1"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/baseline_email_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:padding="17dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Contraseña"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            app:boxBackgroundColor="#F1F1F1"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/baseline_password_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:padding="17dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Spinner
+            android:id="@+id/sRoles"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_spinner_1"
+            android:elevation="4dp"
+            android:theme="@style/CustomSpinnerRegistro"/>
+
+        <Button
+            android:id="@+id/btnAddUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/green"
+            android:text="Agregar usuario" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

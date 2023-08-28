@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_integrantes"
+        android:icon="@drawable/baseline_info_24"
+        android:title="ACERCA DE" />
+    <item
+        android:id="@+id/item_principal"
+        android:icon="@drawable/baseline_home_24"
+        android:title="MENÚ PRINCIPAL"/>
+    <item
+        android:id="@+id/item_ubicacion"
+        android:icon="@drawable/baseline_place_24"
+        android:title="UBICACIÓN" />
+    <item
+        android:id="@+id/item_yape"
+        android:title="YAPE"
+        android:icon="@drawable/baseline_attach_money_24"/>
+    <item
+        android:id="@+id/item_cerrarsesion"
+        android:title="CERRAR SESION"
+        android:icon="@drawable/baseline_logout_24" />
+
+</menu>

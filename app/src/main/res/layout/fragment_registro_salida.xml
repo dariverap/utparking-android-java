@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1F1F1"
+    android:paddingLeft="25dp"
+    android:paddingTop="18dp"
+    android:paddingRight="25dp"
+    tools:context=".registro.Registro_fragment_salida">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="INGRESAR PATENTE"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/black"
+            app:boxBackgroundColor="#F1F1F1"
+            app:startIconDrawable="@drawable/baseline_car_rental_24">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPatente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:inputType="textPersonName"
+                android:maxLength="6"
+                android:padding="13dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btnBuscar"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/lato_bold"
+            android:text="Buscar"
+            app:cornerRadius="5dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="DATOS DE LA BÚSQUEDA"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            app:boxBackgroundMode="outline"
+            android:hint="Ingreso"
+            android:padding="8dp"
+            app:hintTextColor="@color/black"
+            app:boxBackgroundColor="#F1F1F1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etIngreso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:padding="13dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            app:boxBackgroundMode="outline"
+            android:padding="8dp"
+            app:hintTextColor="@color/black"
+            android:hint="Patente"
+            app:boxBackgroundColor="#F1F1F1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPlaca2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:padding="13dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/black"
+            android:padding="8dp"
+            android:hint="Tarifa"
+            app:boxBackgroundColor="#F1F1F1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTarifaPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:padding="13dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            app:boxBackgroundMode="outline"
+            android:padding="8dp"
+            app:hintTextColor="@color/black"
+            android:hint="Espacio"
+            app:boxBackgroundColor="#F1F1F1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEspacio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:inputType="text"
+                android:padding="13dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btnSalida"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/red"
+            android:fontFamily="@font/lato_bold"
+            android:text="MARCAR SALIDA"
+            app:cornerRadius="5dp" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/black"
+            app:boxBackgroundMode="outline"
+            app:hintTextColor="@color/black"
+            android:padding="8dp"
+            android:hint="Total"
+            app:boxBackgroundColor="#F1F1F1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:padding="13dp"
+                android:textColor="@color/black"></com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+</FrameLayout>
