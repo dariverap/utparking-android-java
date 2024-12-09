@@ -77,8 +77,7 @@ public class Registro_editar extends Fragment {
             registro.setId_espacio(getArguments().getInt("idEspacio"));
             registro.setPatente_vehiculo(getArguments().getString("patenteVehiculo"));
             registro.setId_usuario(getArguments().getInt("idUsuario"));
-            registro.setId_tarifa(getArguments().getInt("idTarifa"));
-            registro.setCosto_total(getArguments().getDouble("costoTotal"));
+
         }
 
     }
@@ -102,8 +101,7 @@ public class Registro_editar extends Fragment {
         etIdEspacio.setText(String.valueOf(registro.getId_espacio()));
         etPatenteVehiculo.setText(registro.getPatente_vehiculo());
         etIdUsuario.setText(String.valueOf(registro.getId_usuario()));
-        etIdTarifa.setText(String.valueOf(registro.getId_tarifa()));
-        etCostoTotal.setText(String.valueOf(registro.getCosto_total()));
+
 
 
         btnActualizar.setOnClickListener(new View.OnClickListener() {
@@ -134,8 +132,7 @@ public class Registro_editar extends Fragment {
         this.registro.setId_espacio(Integer.valueOf(binding.etIdEspacio.getText().toString()));
         this.registro.setPatente_vehiculo(binding.etPatenteVehiculo.getText().toString());
         this.registro.setId_usuario(Integer.valueOf(binding.etIdUsuario.getText().toString()));
-        this.registro.setId_tarifa(Integer.valueOf(binding.etTarifa.getText().toString()));
-        this.registro.setCosto_total(Double.valueOf(binding.etCostoTotal.getText().toString()));
+
         Log.i("Etiqueta", String.valueOf(fechaFormateada));
 
 

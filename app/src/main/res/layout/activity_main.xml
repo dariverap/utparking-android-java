@@ -54,37 +54,37 @@
             </LinearLayout>
 
         </FrameLayout>
+        <!--
+                <nl.joery.animatedbottombar.AnimatedBottomBar
+                    android:id="@+id/bottom_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_gravity="bottom"
+                    android:background="@color/white"
+                    android:fitsSystemWindows="true"
+                    app:abb_badgeTextColor="@color/black"
+                    app:abb_indicatorAnimation="slide"
+                    app:abb_indicatorAppearance="round"
+                    app:abb_indicatorColor="#0099FF"
+                    app:abb_indicatorHeight="5dp"
+                    app:abb_indicatorMargin="25dp"
+                    app:abb_rippleEnabled="true"
+                    app:abb_selectedIndex="0"
+                    app:abb_selectedTabType="text"
+                    app:abb_tabColorSelected="#0099FF"
+                    app:abb_tabs="@menu/menu">
 
-        <nl.joery.animatedbottombar.AnimatedBottomBar
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_gravity="bottom"
-            android:background="@color/white"
-            android:fitsSystemWindows="true"
-            app:abb_badgeTextColor="@color/black"
-            app:abb_indicatorAnimation="slide"
-            app:abb_indicatorAppearance="round"
-            app:abb_indicatorColor="#0099FF"
-            app:abb_indicatorHeight="5dp"
-            app:abb_indicatorMargin="25dp"
-            app:abb_rippleEnabled="true"
-            app:abb_selectedIndex="0"
-            app:abb_selectedTabType="text"
-            app:abb_tabColorSelected="#0099FF"
-            app:abb_tabs="@menu/menu">
+                </nl.joery.animatedbottombar.AnimatedBottomBar>
+        -->
+            </LinearLayout>
 
-        </nl.joery.animatedbottombar.AnimatedBottomBar>
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/nv1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="#F1F1F1"
+                app:headerLayout="@layout/cabecera_drawer"
+                app:menu="@menu/menu_otros"></com.google.android.material.navigation.NavigationView>
 
-    </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nv1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#F1F1F1"
-        app:headerLayout="@layout/cabecera_drawer"
-        app:menu="@menu/menu_otros"></com.google.android.material.navigation.NavigationView>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+        </androidx.drawerlayout.widget.DrawerLayout>

@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.Cleaner;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -16,11 +17,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    static final String BASE_URL = "http://192.168.101.6:8080";
+    static final String BASE_URL = "https://utparking-api.onrender.com";
 
     Retrofit retrofit;
 
     public RetrofitClient() { }
+
 
     public Retrofit getRetrofit() {
         retrofit = new Retrofit.Builder()

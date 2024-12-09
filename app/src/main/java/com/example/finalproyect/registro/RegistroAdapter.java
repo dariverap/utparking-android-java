@@ -19,12 +19,17 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class RegistroAdapter extends RecyclerView.Adapter<RegistroAdapter.RegistroViewHolder>{
-
+    OnItemClicked onClick;
     Context context;
     ArrayList<Registro> listaRegistros;
-
+    public RegistroAdapter(Context context, ArrayList<Registro> listaRegistros, OnItemClicked onClick) {
+        this.context = context;
+        this.listaRegistros = listaRegistros;
+        this.onClick = onClick; // Ahora se asigna correctamente
+    }
     @NonNull
     @Override
     public RegistroViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,41 +37,26 @@ public class RegistroAdapter extends RecyclerView.Adapter<RegistroAdapter.Regist
         return new RegistroViewHolder(vista);
     }
 
+    public void setListaRegistros(ArrayList<Registro> nuevaLista) {
+        this.listaRegistros = nuevaLista;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull RegistroViewHolder holder, int position) {
         Registro registro = listaRegistros.get(position);
 
         Date date = Date.from(Instant.parse(registro.getFecha_ingreso()));
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy - MM - dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         String fecha = dateFormatter.format(localDateTime);
         String hora = timeFormatter.format(localDateTime);
 
         holder.tvIdRegistro.setText(registro.getId()+"");
-
-
-
-        holder.tvFechaIngreso.setText(fecha+"-"+hora);
-
-        Date date2 = Date.from(Instant.parse(registro.getFecha_salida()));
-        DateTimeFormatter dateFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter timeFormatter2 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalDateTime localDateTime2 = LocalDateTime.ofInstant(date2.toInstant(), ZoneId.systemDefault());
-        String fecha2 = dateFormatter2.format(localDateTime2);
-        String hora2 = timeFormatter2.format(localDateTime2);
-
-        holder.tvFechaSalida.setText(fecha2+" - "+hora2);
-
+        holder.tvFechaIngreso.setText(fecha);
+        holder.tvHoraIngreso.setText(hora);
         holder.tvIdEspacio.setText(registro.getId_espacio()+"");
         holder.tvPatenteVehiculo.setText(registro.getPatente_vehiculo());
-        //holder.tvIdUsuario.setText(String.valueOf(registro.getId_usuario()));
-        //holder.tvIdTarifa.setText(String.valueOf(registro.getId_tarifa()));
-        holder.tvCostoTotal.setText(String.valueOf(registro.getCosto_total()));
-
-        holder.btnEditar.setOnClickListener(view -> {
-            onClick.editarRegistro(registro);
-        });
 
         holder.btnBorrar.setOnClickListener(view -> {
             onClick.borrarRegistro(registro.getId());
@@ -75,12 +65,8 @@ public class RegistroAdapter extends RecyclerView.Adapter<RegistroAdapter.Regist
     }
 
 
-    public RegistroAdapter(Context context, ArrayList<Registro> listaRegistros) {
-        this.context = context;
-        this.listaRegistros = listaRegistros;
-    }
 
-    public OnItemClicked onClick = null;
+
 
     @Override
     public int getItemCount() {
@@ -91,34 +77,29 @@ public class RegistroAdapter extends RecyclerView.Adapter<RegistroAdapter.Regist
     public static class RegistroViewHolder extends RecyclerView.ViewHolder {
         TextView tvIdRegistro;
         TextView tvFechaIngreso;
-        TextView tvFechaSalida;
+        TextView tvHoraIngreso;
+        //TextView tvFechaSalida;
+        //TextView tvHoraSalida;
         TextView tvIdEspacio;
         TextView tvPatenteVehiculo;
-        TextView tvIdUsuario;
-        TextView tvIdTarifa;
-        TextView tvCostoTotal;
-        Button btnEditar;
+
         Button btnBorrar;
         public RegistroViewHolder(@NonNull View itemView) {
 
             super(itemView);
-
+            tvHoraIngreso = itemView.findViewById(R.id.tvHoraIngreso);
             tvIdRegistro = itemView.findViewById(R.id.tvIdRegistro);
             tvFechaIngreso = itemView.findViewById(R.id.tvFechaIngreso);
-            tvFechaSalida = itemView.findViewById(R.id.tvFechaSalida);
+            //tvFechaSalida = itemView.findViewById(R.id.tvFechaSalida);
             tvIdEspacio = itemView.findViewById(R.id.tvIdEspacio);
             tvPatenteVehiculo = itemView.findViewById(R.id.tvPatenteVehiculo);
-            //tvIdUsuario = itemView.findViewById(R.id.tvIdUsuario);
-            //tvIdTarifa = itemView.findViewById(R.id.tvIdTarifa);
-            tvCostoTotal = itemView.findViewById(R.id.tvCostoTotal);
+            //tvHoraSalida = itemView.findViewById(R.id.tvHoraIngreso);
 
-            btnEditar = itemView.findViewById(R.id.btnEditar);
             btnBorrar = itemView.findViewById(R.id.btnBorrar);
         }
     }
 
     public interface OnItemClicked {
-        void editarRegistro(Registro registro);
         void borrarRegistro(int idRegistro);
     }
 

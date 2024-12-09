@@ -51,7 +51,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Patente de vehículo"
+                android:hint="N° de Placa del Vehiculo"
                 android:inputType="text"
                 android:textColorHint="@color/black"
                 app:boxBackgroundColor="#F1F1F1"
@@ -71,24 +71,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/lato_bold"
-                android:text="Escoja la tarifa:"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-            <Spinner
-                android:id="@+id/sTarifas"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/style_spinner_1"
-                android:elevation="3dp"
-                android:theme="@style/CustomSpinnerRegistro" />
 
             <Button
                 android:id="@+id/btnAddUpdate"

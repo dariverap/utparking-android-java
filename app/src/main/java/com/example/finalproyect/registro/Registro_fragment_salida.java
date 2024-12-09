@@ -160,10 +160,10 @@ public class Registro_fragment_salida extends Fragment {
                 registroAc.setFecha_ingreso(registroEncontrado.getFecha_ingreso());
                 registroAc.setId(registroEncontrado.getId());
                 registroAc.setId_espacio(registroEncontrado.getId_espacio());
-                registroAc.setId_tarifa(registroEncontrado.getId_tarifa());
+                //registroAc.setId_tarifa(registroEncontrado.getId_tarifa());
                 registroAc.setId_usuario(registroEncontrado.getId_usuario());
                 registroAc.setPatente_vehiculo(registroEncontrado.getPatente_vehiculo());
-                registroAc.setCosto_total(total);
+                //registroAc.setCosto_total(total);
                 Log.e("ACTUALIZAR REGISTRO", registroAc.toString());
 
                 actualizarRegistro(registroAc);

@@ -3,6 +3,8 @@ package com.example.finalproyect.registro;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.finalproyect.Espacio.Espacio;
 import com.example.finalproyect.Espacio.EspacioResponse;
+import com.example.finalproyect.Primer_fragment;
 import com.example.finalproyect.R;
 import com.example.finalproyect.RetrofitClient;
 import com.example.finalproyect.WebService;
@@ -42,22 +45,19 @@ public class Registro_fragment_registro extends Fragment {
 
     FragmentRegistroRegistroBinding binding;
 
-    RegistroAdapter adaptador;
-
-    ArrayList<Registro> listaRegistros = new ArrayList<>();
     ArrayList<Tarifa> listaTarifas = new ArrayList<>();
     ArrayList<Espacio> listaEspacios = new ArrayList<>();
-    private Spinner sTarifas;
+
     private Spinner sEspacios;
     Registro registro = new Registro();
-
-    Boolean isEditando = false;
 
     Retrofit retrofit = new RetrofitClient().getRetrofit();
     WebService webService = retrofit.create(WebService.class);
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final String ARG_USER_ID = "user_id"; // Definir la clave para el ID del usuario
+    private int userId; // Variable para almacenar el ID del usuario
 
     private String mParam1;
     private String mParam2;
@@ -67,11 +67,10 @@ public class Registro_fragment_registro extends Fragment {
     }
 
 
-    public static Registro_fragment_registro newInstance(String param1, String param2) {
+    public static Registro_fragment_registro newInstance(int userId) {
         Registro_fragment_registro fragment = new Registro_fragment_registro();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_USER_ID, userId); // Guardar el ID en los argumentos
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,9 +81,9 @@ public class Registro_fragment_registro extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            userId = getArguments().getInt(ARG_USER_ID); // Recuperar el ID del usuario desde los argumentos
         }
 
-        obtenerTarifasDisponibles();
         obtenerEspaciosDisponibles();
     }
 
@@ -95,20 +94,18 @@ public class Registro_fragment_registro extends Fragment {
         Calendar calendar = Calendar.getInstance(); // Crea una instancia de Calendar con la hora y fecha actual del sistema
         Date fechaActual = calendar.getTime(); // Obtiene la fecha y hora actual del sistema como objeto Date
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        // Modificar el formato para ser compatible con MySQL (yyyy-MM-dd HH:mm:ss)
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+        // Formatea la fecha y hora actual en el formato deseado sin la 'T' y 'Z'
+        String fechaFormateada = formatter.format(fechaActual);
+
+        this.registro.setFecha_ingreso(fechaFormateada); // Asigna la fecha formateada al registro
 
 
-        String fechaFormateada = formatter.format(fechaActual); // Formatea la fecha y hora actual en el formato deseado con la zona horaria UTC
-
-        this.registro.setFecha_ingreso(fechaFormateada);
-        this.registro.setFecha_salida("2000-01-01T00:00:00.000Z");
-
-
-        //this.registro.setId_espacio(Integer.valueOf(binding.etIdEspacio.getText().toString()));
         this.registro.setPatente_vehiculo(binding.etPatenteVehiculo.getText().toString());
-        this.registro.setId_usuario(6);
-        //this.registro.setId_tarifa(Integer.valueOf(binding.etTarifa.getText().toString()));
-        this.registro.setCosto_total(0);
+
+        this.registro.setId_usuario(userId); // Establecer el ID del usuario
 
 
 
@@ -117,19 +114,33 @@ public class Registro_fragment_registro extends Fragment {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                FancyToast.makeText(requireContext(), response.body().toString(),FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
-                //Toast.makeText(requireContext(), response.body().toString(), Toast.LENGTH_LONG).show();
-                //obtenerRegistros();
-                limpiarCampos();
-                limpiarObjeto();
+                if (response.isSuccessful() && response.body() != null) {
+                    // Solo accedemos a la respuesta si no es nula
+                    FancyToast.makeText(requireContext(), response.body(), FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                    //Toast.makeText(requireContext(), response.body().toString(), Toast.LENGTH_LONG).show();
+                    //obtenerRegistros();
+                    limpiarCampos();
+                    limpiarObjeto();
+                    irMenu();
+                } else {
+                    // Manejo en caso de que la respuesta sea nula o no exitosa
+                    FancyToast.makeText(requireContext(), "Respuesta no válida", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+                }
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                FancyToast.makeText(requireContext(),"Error add",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
-                //Toast.makeText(requireContext(), "ERROR ADD", Toast.LENGTH_LONG).show();
+                if (isAdded()) { // Verifica si el fragmento está adjunto
+                    //FancyToast.makeText(requireContext(), "Error add", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+                    limpiarCampos();
+                    limpiarObjeto();
+                    irMenu();
+                } else {
+                    Log.e("RegistroFragment", "Fragment no adjunto, no se puede mostrar el toast.");
+                }
             }
         });
+
 
         actualizarEspacio(registro.getId_espacio());
         obtenerEspaciosDisponibles();
@@ -148,7 +159,7 @@ public class Registro_fragment_registro extends Fragment {
         // Obtener referencia al botón
         Button btnAddUpdate = binding.btnAddUpdate;
 
-        sTarifas = binding.sTarifas;
+        //sTarifas = binding.sTarifas;
         sEspacios = binding.sEspacios;
         Log.i("Etiqueta", (listaTarifas.toString()));
 
@@ -158,43 +169,6 @@ public class Registro_fragment_registro extends Fragment {
             opciones.add(tarifa.getDescripcion());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opciones);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sTarifas.setAdapter(adapter);
-
-// Recorrer la lista de tarifas y agregar los nombres de las opciones a la lista "opciones"
-//        List<Integer> opcionesEspacio = new ArrayList<>();
-//
-//        for (Espacio espacio : listaEspacios) {
-//            opcionesEspacio.add(espacio.getId());
-//        }
-//
-//        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opcionesEspacio);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        sEspacios.setAdapter(adapter2);
-
-        // Manejar selección de Spinner
-        sTarifas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Obtener texto seleccionado del Spinner
-                String tarifaSeleccionada = parent.getItemAtPosition(position).toString();
-                // Buscar la tarifa seleccionada en la lista de tarifas y asignar su id a la propiedad id_tarifa del objeto registro
-                for (Tarifa tarifa : listaTarifas) {
-                    if (tarifa.getDescripcion().equals(tarifaSeleccionada)) {
-                        registro.setId_tarifa(tarifa.getId());
-                        break;
-                    }
-                }
-            }
-
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // No se seleccionó nada, no se hace nada aquí
-            }
-        });
 
         //SELECTOR DE SPINNER DE ESPACIOS
         sEspacios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -235,10 +209,10 @@ public class Registro_fragment_registro extends Fragment {
     }
     public void limpiarObjeto() {
         this.registro.setId(-1);
-        this.registro.setCosto_total(-1);
+
         this.registro.setFecha_ingreso("");
         this.registro.setFecha_salida("");
-        this.registro.setId_tarifa(-1);
+
         this.registro.setId_espacio(-1);
         this.registro.setPatente_vehiculo("");
 
@@ -251,36 +225,6 @@ public class Registro_fragment_registro extends Fragment {
 
     }
 
-    public void obtenerTarifasDisponibles() {
-        Call<TarifaResponse> call = webService.obtenerTarifas();
-        call.enqueue(new Callback<TarifaResponse>() {
-            @Override
-            public void onResponse(Call<TarifaResponse> call, Response<TarifaResponse> response) {
-                if (response.isSuccessful()) {
-                    TarifaResponse tarifaResponse = response.body();
-                    if (tarifaResponse != null) {
-                        listaTarifas = tarifaResponse.getListaTarifas();
-
-                        // Actualizar las opciones del Spinner "sEspacios"
-                        List<String> opciones = new ArrayList<>();
-                        for (Tarifa tarifa : listaTarifas) {
-                            opciones.add(tarifa.getDescripcion());
-                        }
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, opciones);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        sTarifas.setAdapter(adapter);
-                    }
-                } else {
-                    FancyToast.makeText(requireContext(),"Error al consultar la lista de tarifas",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TarifaResponse> call, Throwable t) {
-                FancyToast.makeText(requireContext(),"Error al consultar la lista de tarifas",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
-            }
-        });
-    }
 
     public void obtenerEspaciosDisponibles() {
         Call<EspacioResponse> call = webService.obtenerEspacios();
@@ -343,6 +287,18 @@ public class Registro_fragment_registro extends Fragment {
                 FancyToast.makeText(getActivity(),"Error en la llamada al servicio web",FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show();
             }
         });
+    }
+
+    public void irMenu(){
+
+
+        Primer_fragment miFragmento = Primer_fragment.newInstance(userId);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame1, miFragmento);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 

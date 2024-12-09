@@ -7,8 +7,8 @@ public class Registro {
     private int id_espacio;
     private String patente_vehiculo;
     private int id_usuario;
-    private int id_tarifa;
-    private double costo_total;
+
+
 
     @Override
     public String toString() {
@@ -18,21 +18,18 @@ public class Registro {
                 ", fecha_salida='" + fecha_salida + '\'' +
                 ", id_espacio=" + id_espacio +
                 ", patente_vehiculo='" + patente_vehiculo + '\'' +
-                ", id_usuario=" + id_usuario +
-                ", id_tarifa=" + id_tarifa +
-                ", costo_total=" + costo_total +
+                ", id_usuario=" + id_usuario  +
                 '}';
     }
 
-    public Registro(int id, String fecha_ingreso, String fecha_salida, int id_espacio, String patente_vehiculo, int id_usuario, int id_tarifa, double costo_total) {
+    public Registro(int id, String fecha_ingreso, String fecha_salida, int id_espacio, String patente_vehiculo, int id_usuario) {
         this.id = id;
         this.fecha_ingreso = fecha_ingreso;
         this.fecha_salida = fecha_salida;
         this.id_espacio = id_espacio;
         this.patente_vehiculo = patente_vehiculo;
         this.id_usuario = id_usuario;
-        this.id_tarifa = id_tarifa;
-        this.costo_total = costo_total;
+
     }
 
     public Registro() {
@@ -86,20 +83,6 @@ public class Registro {
         this.id_usuario = id_usuario;
     }
 
-    public int getId_tarifa() {
-        return id_tarifa;
-    }
 
-    public void setId_tarifa(int id_tarifa) {
-        this.id_tarifa = id_tarifa;
-    }
-
-    public double getCosto_total() {
-        return costo_total;
-    }
-
-    public void setCosto_total(double costo_total) {
-        this.costo_total = costo_total;
-    }
 }
 

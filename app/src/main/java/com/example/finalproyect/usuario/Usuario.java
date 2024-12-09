@@ -10,6 +10,8 @@ public class Usuario {
     private String contrasena;
     private int id_rol;
 
+    private int estado;
+
     @Override
     public String toString() {
         return "Usuario{" +

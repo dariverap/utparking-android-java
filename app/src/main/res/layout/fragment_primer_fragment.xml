@@ -67,7 +67,7 @@
                 android:text="LISTA"
                 android:textSize="15sp"
                 app:cornerRadius="10dp" />
-
+<!--
             <Button
                 android:id="@+id/btn_salida_ingreso"
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 android:text="SALIDA"
                 android:textSize="15sp"
                 app:cornerRadius="10dp" />
-
+-->
         </LinearLayout>
 
     </LinearLayout>

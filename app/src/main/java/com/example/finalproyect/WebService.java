@@ -33,6 +33,14 @@ public interface WebService {
             @Path("id") int id
     );
 
+    @PUT("/usuario/actualizarEstado")
+    Call<String> actualizarEstadoUsuario(@Body Usuario usuario);  // Método para actualizar el estado del usuario
+
+    @GET("/usuario/estado/{id}")
+    Call<Integer> obtenerEstadoUsuario(@Path("id") int id);
+
+
+
     @POST("/usuario/add")
     Call<String> agregarUsuario(
             @Body Usuario usuario
@@ -54,8 +62,10 @@ public interface WebService {
             @Body Registro registro
     );
 
-    @GET("/registros")
-    Call<RegistroResponse> obtenerRegistros();
+    @GET("/registros/{id}")
+    Call<RegistroResponse> obtenerRegistros(
+            @Path("id") int id
+    );
 
 
     @GET("/registro/{patente_vehiculo}")
@@ -68,6 +78,11 @@ public interface WebService {
     Call<String> actualizarRegistro(
             @Path("idRegistro") int idRegistro,
             @Body Registro registro
+    );
+
+    @PUT("/registro2/update/{idRegistro}")
+    Call<String> actualizarRegistro2(
+            @Path("idRegistro") int idRegistro
     );
 
     @DELETE("/registro/delete/{idRegistro}")

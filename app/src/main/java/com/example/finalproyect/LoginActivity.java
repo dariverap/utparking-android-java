@@ -40,8 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void Iniciarsesion(){
-
+    public void Iniciarsesion() {
         correo = findViewById(R.id.txtusuario);
         contraseña = findViewById(R.id.txtcontraseña);
         WebService webService = retrofit.create(WebService.class);
@@ -57,21 +56,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
-                    // cuando La petición se hae correctamente y se devolvió una respuesta válida
-                    LoginResponse loginResponse = response.body();//obtiene la respuesta que envía el servidor
-                    Usuario usuario = loginResponse.getUsuario(); //obtiene el objeto usuario
-                    String mensaje = loginResponse.getMensaje(); //obteine un mensaje que el servidor haya mandado junto con la respuesta
+                    // cuando La petición se hace correctamente y se devolvió una respuesta válida
+                    LoginResponse loginResponse = response.body(); // obtiene la respuesta que envía el servidor
+                    Usuario usuario = loginResponse.getUsuario(); // obtiene el objeto usuario
+
+                    // Guardar ID del usuario en SharedPreferences o pasar a la siguiente actividad
+                    int userId = usuario.getId(); // Asumiendo que tienes un método getId() en Usuario
+
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    Bundle args = new Bundle();
-                    args.putString("NombreUsuario", usuario.getNombre());
+                    intent.putExtra("USER_ID", userId); // Pasar el ID del usuario a MainActivity
 
                     startActivity(intent);
                     finish();
-                    FancyToast.makeText(getApplicationContext(),"Bienvenido!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show();
-
-
+                    FancyToast.makeText(getApplicationContext(), "Bienvenido!", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
                 } else {
-                    //si falla al iniciar sesión
+                    // si falla al iniciar sesión
                     Toast.makeText(LoginActivity.this, "INGRESE LOS DATOS CORRECTAMENTE", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -81,6 +80,5 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "FALLO EN LA PETICIÓN", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }
