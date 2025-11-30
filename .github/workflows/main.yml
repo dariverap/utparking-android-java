@@ -1,0 +1,21 @@
+name: Fix gitignore
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apply-gitignore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove tracked files that should be ignored
+        run: |
+          git rm -r --cached .
+          git add .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Apply .gitignore and stop tracking ignored files" || echo "Nothing to commit"
+          git push
